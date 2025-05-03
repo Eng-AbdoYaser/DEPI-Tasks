@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+<a href="/employees/new" class="btn btn-primary">Add New Employee</a>
+
+<% if (employees.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Salary</th>
+        <th>Gender</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(employee => { %>
+        <tr>
+          <td><%= employee.name %></td>
+          <td><%= employee.address %></td>
+          <td>EGP <%= employee.salary %></td>
+          <td><%= employee.gender %></td>
+          <td>
+            <a href="/employees/<%= employee._id %>/edit" class="btn btn-warning">Edit</a>
+            <form action="/employees/<%= employee._id %>/delete" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>No employees found.</p>
+<% } %>
+
+<%- include('../partials/footer') %>
